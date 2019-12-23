@@ -1,0 +1,45 @@
+package com.cucumber99;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+import junit.framework.Assert;
+
+public class Test_steps {
+WebDriver driver;
+@Given("User is on Home Page")
+public void user_is_on_Home_page(){
+	System.setProperty("webdriver.chrome.driver", "C://driver9999//chromedriver.exe");
+	driver= new ChromeDriver();
+	driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+	driver.get("http://10.232.237.143:443/TestMeApp/fetchcat.htm#");
+	}
+
+@When("User Navigate to Login page")
+public void user_Navigate_to_Login_page(){
+	driver.findElement(By.linkText("SignIn")).click();
+	String title=driver.getTitle();
+	Assert.assertEquals("Home", title);
+	}
+
+@When("user enters {string} and {string}")
+public void user_enters_and(String username, String password){
+	driver.findElement(By.name("userName")).sendKeys(username);
+	driver.findElement(By.name("password")).sendKeys(password);
+}
+
+@Then("Message displayed Login Successful")
+public void message_displayed_Login_Successful(){
+ System.out.println("Login Successful");
+}
+
+}
+
+
+
